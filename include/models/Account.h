@@ -3,12 +3,14 @@
 class Account{
     private:
         long accountNumber;
-        int customerId;
+        long long customerId;
         double balance;
 
     public:
-        Account(long accountNumber, double balance): accountNumber(accountNumber), balance(balance) {}
+        Account(long accountNumber, long long customerId, double balance): accountNumber(accountNumber), customerId(customerId), balance(balance) {}
+       
         long getAccountNumber() const;
+        long long getCustomerId() const;
         double getBalance() const;
         void deposit(double amount);
         void withdraw(double amount);

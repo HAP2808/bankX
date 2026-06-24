@@ -9,7 +9,7 @@ class AccountService{
         std::vector<Account> accounts;
     
     public:
-        void createAccount();
+        bool createAccount(long long customerId, double balance);
         void deposit();
         void withdraw();
         void displayBalance() const;

@@ -5,14 +5,14 @@
 class Customer
 {
 private:
-    int customerId;
+    long long customerId;
     std::string customerName;
     std::string customerEmail;
 
 public:
-    Customer(int id, const std::string &name, const std::string &email) : customerId(id), customerName(name), customerEmail(email) {}
+    Customer(long long id, const std::string &name, const std::string &email) : customerId(id), customerName(name), customerEmail(email) {}
 
-    int getCustomerId() const;
+    long long getCustomerId() const;
     std::string getName() const;
     std::string getEmail() const;
 };

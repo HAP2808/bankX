@@ -68,14 +68,21 @@ BankX/
 │   ├── repository/
 │   │   ├── AccountRepository.h
 │   │   └── CustomerRepository.h
-│   └── services/
-│       ├── AccountService.h
-│       ├── CustomerService.h
-│       └── TransferService.h
+│   ├── services/
+│   │   ├── AccountService.h
+│   │   ├── CustomerService.h
+│   │   └── TransferService.h
+│   └── utils/
+│       └── RandomUtils.h
 ├── src/                        # Source files
 │   ├── main.cpp
 │   ├── Application.cpp
 │   ├── Menu.cpp
+│   ├── models/
+│   │   ├── Account.cpp
+│   │   └── Customer.cpp
+│   ├── utils/
+│   │   └── RandomUtils.cpp
 │   └── services/
 │       ├── AccountService.cpp
 │       └── CustomerService.cpp

@@ -20,13 +20,32 @@ void Application::run() {
         switch(choice)
         {
             case 1:
-                std::cout << "Create Customer\n";
+                std::cout << "Create Customer\n\n";
                 customerService.createCustomer();
                 break;
 
             case 2:
-                std::cout << "Create Account\n";
-                accountService.createAccount();
+                double balance;
+                long long customerId;
+                const Customer* customer;
+                std::cout << "Create Account\n\n";
+                
+                std::cout << "Enter customer ID: \n";
+                std::cin >> customerId;
+
+                std::cout << "Opening Balance: \n";
+                std::cin >> balance;
+
+                customer = customerService.getCustomerById(customerId);
+                if (!customer)
+                {
+                    std::cout << "Customer does not exist. \nPlease create customer.\n";
+                    break;
+                }
+                
+                if (!accountService.createAccount(customerId, balance)) {
+                    break;
+                }
                 break;
 
             case 3:
@@ -42,11 +61,12 @@ void Application::run() {
                 break;
             
             case 6:
-                std::cout << "View Balance\n";
+                std::cout << "View Balance\n\n";
                 break;
             
             case 7:
-                std::cout << "List Customers\n";
+                std::cout << "List Customers\n\n";
+                customerService.listCustomers();
                 break;
 
             case 8:
