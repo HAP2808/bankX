@@ -31,7 +31,7 @@ void Application::run() {
             case 2: {
                 double balance;
                 long long customerId;
-                long accountNumber;
+                long long accountNumber;
                 const Customer* customer;
                 std::cout << "Create Account\n\n";
                 
@@ -59,7 +59,7 @@ void Application::run() {
             case 3: {
                 std::cout << "Deposit\n\n";
 
-                long accountNumber;
+                long long accountNumber;
                 double amount;
                 const Account* account;
                 std::cout << "Enter Account Number:: ";
@@ -74,7 +74,7 @@ void Application::run() {
             case 4: {
                 std::cout << "Withdraw\n\n";
 
-                long accountNumber;
+                long long accountNumber;
                 double amount;
                 const Account* account;
                 std::cout << "Enter Account Number:: ";
@@ -86,14 +86,28 @@ void Application::run() {
                 break;
             }
 
-            case 5:
+            case 5: {
                 std::cout << "Transfer\n\n";
+
+                long long sourceAccountNumber, destAccountNumber;
+                double amount;
+                std::cout << "Enter source account number:: ";
+                std::cin >> sourceAccountNumber;
+
+                std::cout << "Enter destination account number:: ";
+                std::cin >> destAccountNumber;
+
+                std::cout << "Enter amount to transfer:: ";
+                std::cin >> amount;
+
+                accountService.transfer(sourceAccountNumber, destAccountNumber, amount);
                 break;
+            }
             
             case 6: {
                 std::cout << "View Balance\n\n";
                 
-                long accountNumber;
+                long long accountNumber;
                 const Account* account;
                 std::cout << "Enter Account Number:: ";
                 std::cin >> accountNumber;

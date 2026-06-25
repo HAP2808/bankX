@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-long Account::getAccountNumber() const {
+long long Account::getAccountNumber() const {
     return accountNumber;
 }
 
