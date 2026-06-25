@@ -13,5 +13,6 @@ class AccountService{
         bool deposit(long long accountNumber, double amount);
         bool withdraw(long long accountNumber, double amount);
         bool transfer(long long sourceAccountNum, long long destAccountNum, double amount);
+        void listAccounts() const;
         const Account* getAccountByAccountNumber(long long accountNumber) const;
 };

@@ -130,6 +130,11 @@ void Application::run() {
                 break;
 
             case 8:
+                std::cout << "List Accounts\n\n";
+                accountService.listAccounts();
+                break;
+
+            case 9:
                 std::cout << "\nThank you for choosing BankX!!\n";
                 running = false;
                 break;
@@ -138,5 +143,4 @@ void Application::run() {
                 std::cout << "Invalid choice\n";
         }
     }
-    
 }

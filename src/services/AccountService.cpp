@@ -97,3 +97,14 @@ bool AccountService::transfer(long long sourceAccNum, long long destAccNum, doub
     std::cout << "Amount " << amount << " transferred successfully!!" << std::endl;
     return true;
 }
+
+void AccountService::listAccounts() const {
+    std::cout << "Accounts:: " << std::endl;
+    for (const Account& account : accounts)
+    {
+        std::cout << "Account ID:: " << account.getAccountNumber() << std::endl;
+        std::cout << "Balance:: " << account.getBalance() << std::endl;
+        std::cout << "Customer ID: " << account.getCustomerId() << std::endl; 
+    }
+    std::cout << std::endl;
+}

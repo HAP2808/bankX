@@ -13,5 +13,4 @@ class CustomerService{
         std::vector<Customer> getAllCustomers() const;
         const Customer* getCustomerById(long long customerId) const;
         void listCustomers() const;
-        bool isCustomerExist(long long customerId) const;
 };
