@@ -14,6 +14,7 @@ add_executable(
     src/Application.cpp
     src/Menu.cpp
     src/models/Customer.cpp
+    src/models/Account.cpp
     src/services/AccountService.cpp
     src/services/CustomerService.cpp
     src/utils/RandomUtils.cpp
