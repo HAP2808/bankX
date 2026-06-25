@@ -9,7 +9,7 @@ class CustomerService{
         std::vector<Customer> customers;
     
     public:
-        void createCustomer();
+        long long createCustomer();
         std::vector<Customer> getAllCustomers() const;
         const Customer* getCustomerById(long long customerId) const;
         void listCustomers() const;

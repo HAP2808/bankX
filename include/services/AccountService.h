@@ -10,8 +10,7 @@ class AccountService{
     
     public:
         long createAccount(long long customerId, double balance);
-        void deposit();
-        void withdraw();
-        void displayBalance() const;
+        bool deposit(long accountNumber, double amount);
+        bool withdraw(long accountNumber, double amount);
         const Account* getAccountByAccountNumber(long accountNumber) const;
 };

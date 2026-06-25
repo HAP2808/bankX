@@ -19,10 +19,14 @@ void Application::run() {
 
         switch(choice)
         {
-            case 1:
+            case 1: {
+                long long customerId;
                 std::cout << "Create Customer\n\n";
-                customerService.createCustomer();
+                customerId = customerService.createCustomer();
+                
+                std::cout << "Customer registered: " << customerId << std::endl;
                 break;
+            }
 
             case 2: {
                 double balance;
@@ -52,13 +56,35 @@ void Application::run() {
                 break;
             }
 
-            case 3:
+            case 3: {
                 std::cout << "Deposit\n\n";
-                break;
 
-            case 4:
-                std::cout << "Withdraw\n\n";
+                long accountNumber;
+                double amount;
+                const Account* account;
+                std::cout << "Enter Account Number:: ";
+                std::cin >> accountNumber;
+
+                std::cout << "Enter amount to deposit:: ";
+                std::cin >> amount;
+                accountService.deposit(accountNumber, amount);
                 break;
+            }
+
+            case 4: {
+                std::cout << "Withdraw\n\n";
+
+                long accountNumber;
+                double amount;
+                const Account* account;
+                std::cout << "Enter Account Number:: ";
+                std::cin >> accountNumber;
+
+                std::cout << "Enter amount to withdraw:: ";
+                std::cin >> amount;
+                accountService.withdraw(accountNumber, amount);
+                break;
+            }
 
             case 5:
                 std::cout << "Transfer\n\n";

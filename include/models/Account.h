@@ -13,5 +13,5 @@ class Account{
         long long getCustomerId() const;
         double getBalance() const;
         void deposit(double amount);
-        void withdraw(double amount);
+        bool withdraw(double amount);
 };

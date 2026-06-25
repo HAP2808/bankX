@@ -15,15 +15,13 @@ double Account::getBalance() const {
 }
 
 void Account::deposit(double amount) {
-    balance = balance + amount;
-    std::cout << "Amount " << amount << " credited to account number: " << accountNumber << std::endl;
+    balance += amount;
 }
 
-void Account::withdraw(double amount) {
-    if (amount < balance)
-    {
-        balance = balance - amount;
-        return;
+bool Account::withdraw(double amount) {
+    if (amount > balance) {
+        return false;
     }
-    std::cout << "NOT ENOUGH BALANCE" << std::endl;
+    balance -= amount;
+    return true;
 }

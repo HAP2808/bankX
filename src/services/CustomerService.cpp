@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <iostream>
 
-void CustomerService::createCustomer() {
+long long CustomerService::createCustomer() {
     std::string customerName, customerEmail;
     long long customerId = generateNDigitID(8);
     
@@ -16,6 +16,8 @@ void CustomerService::createCustomer() {
 
     Customer customer = Customer(customerId, customerName, customerEmail);
     customers.push_back(customer);
+
+    return customerId;
 }
 
 void CustomerService::listCustomers() const {
