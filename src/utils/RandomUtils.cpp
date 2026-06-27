@@ -3,7 +3,9 @@
 #include <random>
 #include <stdexcept>
 
-// Generic function to generate an N-digit random number
+/// @brief Generic function to generate an N-digit random number.
+/// @param numDigits 
+/// @return Return the N-digit random number.
 long long generateNDigitID(int numDigits) {
     // A 64-bit integer can safely hold up to 18 digits.
     if (numDigits < 1 || numDigits > 18) {

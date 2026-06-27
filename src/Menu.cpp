@@ -3,7 +3,7 @@
 
 #include "application/Menu.h"
 
-// Displays the main menu and returns the user's choice.
+/// @brief Display the main menu and return the user's choice.
 int Menu::display()
 {
     std::cout << "\n";

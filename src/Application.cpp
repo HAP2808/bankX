@@ -11,14 +11,17 @@ void Application::run() {
     CustomerService customerService;
     AccountService accountService;
 
+    // flag to control the application
     bool running = true;
 
     while (running)
     {
+        // Display menu.
         int choice = menu.display();
 
         switch(choice)
         {
+            // Create new customer.
             case 1: {
                 long long customerId;
                 std::cout << "Create Customer\n\n";
@@ -28,6 +31,7 @@ void Application::run() {
                 break;
             }
 
+            // Create new account.
             case 2: {
                 double balance;
                 long long customerId;
@@ -56,6 +60,7 @@ void Application::run() {
                 break;
             }
 
+            // Deposit to account.
             case 3: {
                 std::cout << "Deposit\n\n";
 
@@ -71,6 +76,7 @@ void Application::run() {
                 break;
             }
 
+            // Withdraw from account.
             case 4: {
                 std::cout << "Withdraw\n\n";
 
@@ -86,6 +92,7 @@ void Application::run() {
                 break;
             }
 
+            // Transfer from one account to another.
             case 5: {
                 std::cout << "Transfer\n\n";
 
@@ -104,6 +111,7 @@ void Application::run() {
                 break;
             }
             
+            // View current balance of any account.
             case 6: {
                 std::cout << "View Balance\n\n";
                 
@@ -124,16 +132,19 @@ void Application::run() {
                 break;
             }
             
+            // List all customers of BankX.
             case 7:
                 std::cout << "List Customers\n\n";
                 customerService.listCustomers();
                 break;
 
+            // List accounts created in BankX.
             case 8:
                 std::cout << "List Accounts\n\n";
                 accountService.listAccounts();
                 break;
 
+            // Exit application.
             case 9:
                 std::cout << "\nThank you for choosing BankX!!\n";
                 running = false;
