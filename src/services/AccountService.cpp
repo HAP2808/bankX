@@ -1,5 +1,7 @@
 #include "services/AccountService.h"
 #include "utils/RandomUtils.h"
+#include "models/CurrentAccount.h"
+#include "models/SavingsAccount.h"
 
 #include <iostream>
 #include <string>
@@ -8,16 +10,31 @@
 /// @brief Create a new account.
 /// @param customerId 
 /// @param balance 
+/// @param accountType
 /// @return Return account number of newly created account.
-long long AccountService::createAccount(long long customerId, double balance) {
+long long AccountService::createAccount(long long customerId, double balance, const std::string& accountType) {
     if (balance < 1000) {
         std::cout << "Need 1000 as minimum balance." << std::endl;
         return -1;
     }
 
     long long accountNumber = generateNDigitID(12);
-    Account account = Account(accountNumber, customerId, balance);
-    accounts.push_back(account);
+
+    std::unique_ptr<Account> account;
+
+    if (accountType == "CURRENT")
+    {
+        account = std::make_unique<CurrentAccount>(accountNumber, customerId, balance, 5000.0);
+    }
+    else if (accountType == "SAVINGS") {
+        account = std::make_unique<SavingsAccount>(accountNumber, customerId, balance, 4.5, 1000.0);
+    }
+    else {
+        std::cout << "Invalid account type." << std::endl;
+        return -1;
+    }
+    
+    accounts.push_back(std::move(account));
     return accountNumber;
 }
 
@@ -26,15 +43,15 @@ long long AccountService::createAccount(long long customerId, double balance) {
 /// @return Return associated account.
 const Account* AccountService::getAccountByAccountNumber(long long accountNumber) const {
     auto it = std::find_if(accounts.cbegin(), accounts.cend(),
-        [accountNumber](const Account& account) {
-            return account.getAccountNumber() == accountNumber;
+        [accountNumber](const std::unique_ptr<Account>& account) {
+            return account->getAccountNumber() == accountNumber;
         });
 
     if (it == accounts.cend()) {
         return nullptr;
     }
 
-    return &(*it);
+    return it->get();
 }
 
 /// @brief Deposit an amount to the account.
@@ -43,8 +60,8 @@ const Account* AccountService::getAccountByAccountNumber(long long accountNumber
 /// @return Return true / false based on successful transaction.
 bool AccountService::deposit(long long accountNumber, double amount) {
     auto it = std::find_if(accounts.begin(), accounts.end(),
-        [accountNumber](Account& account) {
-            return account.getAccountNumber() == accountNumber;
+        [accountNumber](const std::unique_ptr<Account>& account) {
+            return account->getAccountNumber() == accountNumber;
         });
 
     if (it == accounts.end()) {
@@ -52,7 +69,7 @@ bool AccountService::deposit(long long accountNumber, double amount) {
         return false;
     }
 
-    it->deposit(amount);
+    (*it)->deposit(amount);
     std::cout << "Amount " << amount << " credited to account number: " << accountNumber << std::endl;
     return true;
 }
@@ -63,8 +80,8 @@ bool AccountService::deposit(long long accountNumber, double amount) {
 /// @return Return true / false based on successful transaction.
 bool AccountService::withdraw(long long accountNumber, double amount) {
     auto it = std::find_if(accounts.begin(), accounts.end(),
-        [accountNumber](Account& account) {
-            return account.getAccountNumber() == accountNumber;
+        [accountNumber](const std::unique_ptr<Account>& account) {
+            return account->getAccountNumber() == accountNumber;
         });
 
     if (it == accounts.end()) {
@@ -72,7 +89,7 @@ bool AccountService::withdraw(long long accountNumber, double amount) {
         return false;
     }
 
-    if (!it->withdraw(amount)) {
+    if (!(*it)->withdraw(amount)) {
         std::cout << "NOT ENOUGH BALANCE" << std::endl;
         return false;
     }
@@ -88,8 +105,8 @@ bool AccountService::withdraw(long long accountNumber, double amount) {
 /// @return Return true / false based on successful transaction.
 bool AccountService::transfer(long long sourceAccNum, long long destAccNum, double amount) {
     auto sourceAccount = std::find_if(accounts.begin(), accounts.end(),
-        [sourceAccNum](Account& account) {
-            return account.getAccountNumber() == sourceAccNum;
+        [sourceAccNum](const std::unique_ptr<Account>& account) {
+            return account->getAccountNumber() == sourceAccNum;
         });
 
     if (sourceAccount == accounts.end()) {
@@ -98,8 +115,8 @@ bool AccountService::transfer(long long sourceAccNum, long long destAccNum, doub
     }
 
     auto destAccount = std::find_if(accounts.begin(), accounts.end(),
-        [destAccNum](Account& account) {
-            return account.getAccountNumber() == destAccNum;
+        [destAccNum](const std::unique_ptr<Account>& account) {
+            return account->getAccountNumber() == destAccNum;
         });
 
     if (destAccount == accounts.end()) {
@@ -107,12 +124,12 @@ bool AccountService::transfer(long long sourceAccNum, long long destAccNum, doub
         return false;
     }
 
-    if (!sourceAccount->withdraw(amount)) {
+    if (!(*sourceAccount)->withdraw(amount)) {
         std::cout << "NOT ENOUGH BALANCE" << std::endl;
         return false;
     }
 
-    destAccount->deposit(amount);
+    (*destAccount)->deposit(amount);
 
     std::cout << "Amount " << amount << " transferred successfully!!" << std::endl;
     return true;
@@ -121,11 +138,11 @@ bool AccountService::transfer(long long sourceAccNum, long long destAccNum, doub
 /// @brief list all existing accounts.
 void AccountService::listAccounts() const {
     std::cout << "Accounts:: " << std::endl;
-    for (const Account& account : accounts)
+    for (const std::unique_ptr<Account>& account : accounts)
     {
-        std::cout << "Account ID:: " << account.getAccountNumber() << std::endl;
-        std::cout << "Balance:: " << account.getBalance() << std::endl;
-        std::cout << "Customer ID: " << account.getCustomerId() << std::endl; 
+        std::cout << "Account ID:: " << account->getAccountNumber() << std::endl;
+        std::cout << "Balance:: " << account->getBalance() << std::endl;
+        std::cout << "Customer ID: " << account->getCustomerId() << std::endl; 
     }
     std::cout << std::endl;
 }

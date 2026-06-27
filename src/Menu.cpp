@@ -18,7 +18,8 @@ int Menu::display()
     std::cout << "5. Transfer\n";
     std::cout << "6. View Balance\n";
     std::cout << "7. List Customers\n";
-    std::cout << "8. Exit\n";
+    std::cout << "8. List Accounts\n";
+    std::cout << "9. Exit\n";
 
     int choice;
 

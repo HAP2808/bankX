@@ -36,7 +36,9 @@ void Application::run() {
                 double balance;
                 long long customerId;
                 long long accountNumber;
+                int accountTypeChoice;
                 const Customer* customer;
+
                 std::cout << "Create Account\n\n";
                 
                 std::cout << "Enter customer ID: \n";
@@ -45,6 +47,13 @@ void Application::run() {
                 std::cout << "Opening Balance: \n";
                 std::cin >> balance;
 
+                std::cout << "Choose account type:\n";
+                std::cout << "1. Current Account\n";
+                std::cout << "2. Savings Account\n";
+                std::cin >> accountTypeChoice;
+
+                std::string accountType = (accountTypeChoice == 1) ? "CURRENT" : "SAVINGS";
+
                 customer = customerService.getCustomerById(customerId);
                 if (!customer)
                 {
@@ -52,7 +61,7 @@ void Application::run() {
                     break;
                 }
                 
-                accountNumber = accountService.createAccount(customerId, balance);
+                accountNumber = accountService.createAccount(customerId, balance, accountType);
                 if (accountNumber != -1)
                 {
                     std::cout << "Account created: " << accountNumber << std::endl;
